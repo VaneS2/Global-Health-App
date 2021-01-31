@@ -3,6 +3,7 @@ package com.example.demo.web.Controllers.Controller;
 import com.example.demo.Service.AuthService;
 import com.example.demo.model.exceptions.InvalidArgumentsException;
 import com.example.demo.model.exceptions.PasswordsDoNotMatchException;
+import com.example.demo.model.exceptions.UsernameAlreadyExistsException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/register")
+
+//ovoj kontroler ja otvara stranicata za registracija na korisnik i funkcijata
+//register go kontrolira registriranjeto na samiot korisnik i dokolku toa e ne uspeshno
+//go redirektira povtorno kon istata stranica za registracija, namesto kon stranicata
+//za najava. Dokolku vnesenoto korisnicko ime vekje postoi se pojavuva poraka za greshka
+//i moznost za izbiranje na novo korisnicko ime od strana na korisnikot.
+
 public class Register {
     private final AuthService authService;
 
@@ -48,10 +56,9 @@ public class Register {
                            @RequestParam String email
     ) {
         try{
-            System.out.println(pol);
             this.authService.register(username, password, repeatedPassword, name, surname,telefon,pol,email);
             return "redirect:/login";
-        } catch (InvalidArgumentsException | PasswordsDoNotMatchException exception) {
+        } catch (InvalidArgumentsException | UsernameAlreadyExistsException exception) {
             return "redirect:/register?error=Korisnickoto ime vekje postoi";
         }
     }
