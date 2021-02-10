@@ -28,7 +28,7 @@
 
 
 
-  <div style="margin-right: auto;margin-left: auto; padding-right: 50px; padding-left: 50px;">  <div style="position: center" id="issMap"></div></div>
+    <div style="margin-right: auto;margin-left: auto; padding-right: 50px; padding-left: 50px;">  <div style="position: center" id="issMap"></div></div>
 
 
 
@@ -47,13 +47,16 @@
         lo2=parseFloat(lo2)
         lo2=lo2
         lo1=lo1
+        var zumot;
+        if(zafokus==null)
+        {
+            zumot=13;
+            console.log(zumot);
+            myval[myval.length-1].lat=lo1;
+            myval[myval.length-1].lon=lo2;
 
-
-        console.log(lo2,lo1);
-        var zumot=9;
-
-
-        if(zafokus!=null){
+        }
+        else{
             zumot=12;
             console.log(zumot)
 
@@ -156,7 +159,7 @@
 
         //stavanje od baza
         var niziste=[];
-        for(var w=0;w<myval.length;w++) {
+        for(var w=0;w<myval.length-1;w++) {
             niziste[w]=  L.marker([myval[w].lat, myval[w].lon]).addTo(mymap);
             niziste[w].bindPopup("Aptekata se naogja na " + String(niza2[w]) + " KM");
 
@@ -172,4 +175,3 @@
 
 
 </section>
-
